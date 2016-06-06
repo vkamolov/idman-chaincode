@@ -903,6 +903,7 @@ func GetCP(cpid string, stub *shim.ChaincodeStub) (CP, error){
 
 
 /******* ID-Man cp-code *********************/
+/*
 func GetCompany(companyID string, stub *shim.ChaincodeStub) (Account, error){
 	var company Account
 	companyBytes, err := stub.GetState(accountPrefix+companyID)
@@ -919,6 +920,7 @@ func GetCompany(companyID string, stub *shim.ChaincodeStub) (Account, error){
 	
 	return company, nil
 }
+*/
 /******* ID-Man cp-code *********************/
 
 // Still working on this one
