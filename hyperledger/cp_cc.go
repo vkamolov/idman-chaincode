@@ -150,18 +150,19 @@ func (t *SimpleChaincode) Init(stub *shim.ChaincodeStub, function string, args [
     // Initialize the collection of person keys
     fmt.Println("Initializing Person keys collection")
 	
+    var blank []string
+
     // Check if state already exists
     fmt.Println("Getting Person Keys")
-    keysBytes, err := stub.GetState(personKeysID)
-    if keysBytes == nil {
+    persKeysBytes, persErr := stub.GetState(personKeysID)
+    if persKeysBytes == nil {
         fmt.Println("Cannot find PersKeys, will reinitialize everything")
-        var blank []string
-        blankBytes, _ := json.Marshal(&blank)
-        err := stub.PutState(personKeysID, blankBytes)
-        if err != nil {
+        persBlankBytes, _ := json.Marshal(&blank)
+        persErr := stub.PutState(personKeysID, persBlankBytes)
+        if persErr != nil {
             fmt.Println("Failed to initialize person key collection")
         }
-    } else if err != nil {
+    } else if persErr != nil {
          fmt.Println("Failed to initialize person key collection")
     } else {
         fmt.Println("Found person keyBytes. Will not overwrite keys.")
@@ -172,16 +173,15 @@ func (t *SimpleChaincode) Init(stub *shim.ChaincodeStub, function string, args [
 	
     // Check if state already exists
     fmt.Println("Getting company Keys")
-    keysBytes, err := stub.GetState(companyKeysID)
-    if keysBytes == nil {
+    compKeysBytes, compErr := stub.GetState(companyKeysID)
+    if compKeysBytes == nil {
         fmt.Println("Cannot find company Keys, will reinitialize everything")
-        var blank []string
-        blankBytes, _ := json.Marshal(&blank)
-        err := stub.PutState(companyKeysID, blankBytes)
+        compBlankBytes, _ := json.Marshal(&blank)
+        compErr := stub.PutState(companyKeysID, compBlankBytes)
         if err != nil {
             fmt.Println("Failed to initialize company key collection")
         }
-    } else if err != nil {
+    } else if compErr != nil {
          fmt.Println("Failed to initialize company key collection")
     } else {
         fmt.Println("Found company keyBytes. Will not overwrite keys.")
@@ -1180,7 +1180,7 @@ func (t *SimpleChaincode) Query(stub *shim.ChaincodeStub, function string, args 
 			fmt.Println("All success, returning allCompanies")
 			return allCompaniesBytes, nil		 
 		}		
-		
+
 	} else if args[0] == "GetCompany" {
 		fmt.Println("Getting the company")
 		company, err := GetCompany(args[1], stub)
