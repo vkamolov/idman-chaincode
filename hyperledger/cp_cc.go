@@ -180,7 +180,7 @@ func (t *SimpleChaincode) Init(stub *shim.ChaincodeStub, function string, args [
         fmt.Println("Cannot find company Keys, will reinitialize everything")
         compBlankBytes, _ := json.Marshal(&blank)
         compErr := stub.PutState(companyKeysID, compBlankBytes)
-        if err != nil {
+        if compErr != nil {
             fmt.Println("Failed to initialize company key collection")
         }
     } else if compErr != nil {
