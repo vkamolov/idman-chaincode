@@ -38,6 +38,7 @@ var cpPrefix      = "cp:"
 var accountPrefix = "acct:"
 var accountsKey   = "accounts"
 var personPrefix  = "pers:" 
+var personKeysID  = "PersKeys"
 
 var recentLeapYear = 2016
 
@@ -77,7 +78,6 @@ func msToTime(ms string) (time.Time, error) {
 }
 
 /************* ID-Man **************************/
-/*
 type Person struct {
 	ID				string  `json:"id"`
 	FirstName		string 	`json:"firstName"`
@@ -92,7 +92,6 @@ type Person struct {
 	Registrator    	string  `json:"registrator"`
 	RegisterDate 	string  `json:"registerDate"`
 }
-*/
 /************* ID-Man **************************/
 
 
@@ -139,19 +138,17 @@ func (t *SimpleChaincode) Init(stub *shim.ChaincodeStub, function string, args [
         fmt.Println("Failed to initialize paper key collection")
     }
 
-    /*
-
     // Initialize the collection of person keys
     fmt.Println("Initializing Person keys collection")
 	
     // Check if state already exists
     fmt.Println("Getting Person Keys")
-    keysBytes, err := stub.GetState("PersKeys")
+    keysBytes, err := stub.GetState(personKeysID)
     if keysBytes == nil {
         fmt.Println("Cannot find PersKeys, will reinitialize everything")
         var blank []string
         blankBytes, _ := json.Marshal(&blank)
-        err := stub.PutState("PersKeys", blankBytes)
+        err := stub.PutState(personKeysID, blankBytes)
         if err != nil {
             fmt.Println("Failed to initialize person key collection")
         }
@@ -160,7 +157,6 @@ func (t *SimpleChaincode) Init(stub *shim.ChaincodeStub, function string, args [
     } else {
         fmt.Println("Found person keyBytes. Will not overwrite keys.")
     }
-    */
 	
 	fmt.Println("Initialization complete")
 	return nil, nil
@@ -286,8 +282,9 @@ func (t *SimpleChaincode) registerPerson(stub *shim.ChaincodeStub, args []string
 	}
 
 	//generate the Person ID
-	var stringHash := person.FirstName + person.LastName + person.BirthDate + person.Email + person.Gender
-    person.ID, err = genHash(stringHash)
+	person.ID = strings.ToLower(person.FirstName) + strings.ToLower(person.LastName)
+	//var stringHash := person.FirstName + person.LastName + person.BirthDate + person.Email + person.Gender
+    //person.ID, err = genHash(stringHash)
     fmt.Println("Person ID is: ", person.ID)
 
     if person.ID == "" {
@@ -329,7 +326,7 @@ func (t *SimpleChaincode) registerPerson(stub *shim.ChaincodeStub, args []string
 		
 		// Update the person keys by adding the new key
 		fmt.Println("Getting Person Keys")
-		keysBytes, err := stub.GetState("PersKeys")
+		keysBytes, err := stub.GetState(personKeysID)
 		if err != nil {
 			fmt.Println("Error retrieving person keys")
 			return nil, errors.New("Error retrieving person keys")
@@ -356,7 +353,7 @@ func (t *SimpleChaincode) registerPerson(stub *shim.ChaincodeStub, args []string
 				return nil, errors.New("Error marshalling the keys")
 			}
 			fmt.Println("Put state on PersKeys")
-			err = stub.PutState("PersKeys", keysBytesToWrite)
+			err = stub.PutState(personKeysID, keysBytesToWrite)
 			if err != nil {
 				fmt.Println("Error writting keys back")
 				return nil, errors.New("Error writing the keys back")
@@ -407,7 +404,7 @@ func GetAllPersons(stub *shim.ChaincodeStub) ([]Person, error){
     var allPersons []Person
     
     // Get list of all the keys
-    keysBytes, err := stub.GetState("PersKeys")
+    keysBytes, err := stub.GetState(personKeysID)
     if err != nil {
         fmt.Println("Error retrieving Person keys")
         return nil, errors.New("Error retrieving Person keys")
