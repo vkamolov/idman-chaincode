@@ -37,10 +37,14 @@ import (
 var cpPrefix      = "cp:"
 var accountPrefix = "acct:"
 var accountsKey   = "accounts"
+/******* ID-Man *********************/
 var personPrefix  = "pers:" 
 var personKeysID  = "PersKeys"
+/*
 var companyPrefix  = "comp:"
 var companyKeysID  = "CompKeys"
+*/
+/******* ID-Man *********************/
 
 var recentLeapYear = 2016
 
@@ -94,7 +98,7 @@ type Person struct {
 	Registrator    	string  `json:"registrator"`
 	RegisterDate 	string  `json:"registerDate"`
 }
-
+/*
 type Company struct {
 	ID				string  `json:"id"`
 	Name			string 	`json:"name"`
@@ -109,6 +113,7 @@ type Company struct {
 	Registrator    	string  `json:"registrator"`
 	RegisterDate 	string  `json:"registerDate"`
 }
+*/
 /************* ID-Man **************************/
 
 
@@ -168,6 +173,7 @@ func (t *SimpleChaincode) Init(stub *shim.ChaincodeStub, function string, args [
         fmt.Println("Found person keyBytes. Will not overwrite keys.")
     }
 
+/*
     // Initialize the collection of company keys
     fmt.Println("Initializing company keys collection")
 	
@@ -186,6 +192,7 @@ func (t *SimpleChaincode) Init(stub *shim.ChaincodeStub, function string, args [
     } else {
         fmt.Println("Found company keyBytes. Will not overwrite keys.")
     }    
+*/
 /************* ID-Man **************************/    
 	
 	fmt.Println("Initialization complete")
@@ -477,6 +484,7 @@ func GetPerson(personId string, stub *shim.ChaincodeStub) (Person, error){
     return person, nil
 }
 
+/*
 func (t *SimpleChaincode) registerCompany(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
 
 	//need one arg
@@ -660,6 +668,7 @@ func GetCompany(companyId string, stub *shim.ChaincodeStub) (Company, error){
     
     return company, nil
 }
+*/
 /******* ID-Man *********************/
 
 
@@ -897,7 +906,8 @@ func GetCP(cpid string, stub *shim.ChaincodeStub) (CP, error){
 	return cp, nil
 }
 
-/*
+
+/******* ID-Man cp-code *********************/
 func GetCompany(companyID string, stub *shim.ChaincodeStub) (Account, error){
 	var company Account
 	companyBytes, err := stub.GetState(accountPrefix+companyID)
@@ -914,7 +924,7 @@ func GetCompany(companyID string, stub *shim.ChaincodeStub) (Account, error){
 	
 	return company, nil
 }
-*/
+/******* ID-Man cp-code *********************/
 
 // Still working on this one
 func (t *SimpleChaincode) transferPaper(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
@@ -1164,7 +1174,7 @@ func (t *SimpleChaincode) Query(stub *shim.ChaincodeStub, function string, args 
 			fmt.Println("All success, returning the person")
 			return personBytes, nil		 
 		}
-
+/*
 	} else if args[0] == "GetAllCompanies" {
 		fmt.Println("Getting all Companies")
 		allCompanies, err := GetAllCompanies(stub)
@@ -1196,6 +1206,7 @@ func (t *SimpleChaincode) Query(stub *shim.ChaincodeStub, function string, args 
 			fmt.Println("All success, returning the company")
 			return companyBytes, nil		 
 		}
+*/		
 /************* ID-Man **************************/
 
 	} else {
@@ -1229,10 +1240,11 @@ func (t *SimpleChaincode) Invoke(stub *shim.ChaincodeStub, function string, args
 	} else if function == "registerPerson" {
         //Create a Person
         return t.registerPerson(stub, args)	
-
+/*
 	} else if function == "registerCompany" {
         //Create a Company
         return t.registerCompany(stub, args)
+*/
 /************* ID-Man **************************/      
 	} else if function == "transferPaper" {
 		fmt.Println("Firing cretransferPaperateAccounts")
