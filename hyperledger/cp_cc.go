@@ -37,6 +37,7 @@ import (
 var cpPrefix = "cp:"
 var accountPrefix = "acct:"
 var accountsKey = "accounts"
+var personPrefix  = "pers:"
 
 var recentLeapYear = 2016
 
