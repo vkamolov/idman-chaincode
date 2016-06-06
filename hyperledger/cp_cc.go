@@ -40,10 +40,8 @@ var accountsKey   = "accounts"
 /******* ID-Man *********************/
 var personPrefix  = "pers:" 
 var personKeysID  = "PersKeys"
-/*
 var companyPrefix  = "comp:"
 var companyKeysID  = "CompKeys"
-*/
 /******* ID-Man *********************/
 
 var recentLeapYear = 2016
@@ -98,7 +96,7 @@ type Person struct {
 	Registrator    	string  `json:"registrator"`
 	RegisterDate 	string  `json:"registerDate"`
 }
-/*
+
 type Company struct {
 	ID				string  `json:"id"`
 	Name			string 	`json:"name"`
@@ -113,7 +111,6 @@ type Company struct {
 	Registrator    	string  `json:"registrator"`
 	RegisterDate 	string  `json:"registerDate"`
 }
-*/
 /************* ID-Man **************************/
 
 
