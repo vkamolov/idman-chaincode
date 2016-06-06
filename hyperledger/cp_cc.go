@@ -170,7 +170,6 @@ func (t *SimpleChaincode) Init(stub *shim.ChaincodeStub, function string, args [
         fmt.Println("Found person keyBytes. Will not overwrite keys.")
     }
 
-/*
     // Initialize the collection of company keys
     fmt.Println("Initializing company keys collection")
 	
@@ -188,8 +187,7 @@ func (t *SimpleChaincode) Init(stub *shim.ChaincodeStub, function string, args [
          fmt.Println("Failed to initialize company key collection")
     } else {
         fmt.Println("Found company keyBytes. Will not overwrite keys.")
-    }    
-*/
+    }
 /************* ID-Man **************************/    
 	
 	fmt.Println("Initialization complete")
