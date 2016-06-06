@@ -75,11 +75,6 @@ func msToTime(ms string) (time.Time, error) {
 		(msInt%millisPerSecond)*nanosPerMillisecond), nil
 }
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> parent of 2fa236e... Person data structure
 type Owner struct {
 	Company string    `json:"company"`
 	Quantity int      `json:"quantity"`
