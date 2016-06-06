@@ -78,23 +78,6 @@ func msToTime(ms string) (time.Time, error) {
 		(msInt%millisPerSecond)*nanosPerMillisecond), nil
 }
 
-/************* ID-Man **************************/
-type Person struct {
-	ID				string  `json:"id"`
-	FirstName		string 	`json:"firstName"`
-	LastName		string 	`json:"lastName"`
-	Email			string 	`json:"email"`
-	BirthDate		string 	`json:"birthDate"`
-	Gender			string 	`json:"gender"`
-	Address   		string  `json:"address"`
-	City     		string  `json:"city"`
-	Postcode 		string  `json:"postcode"`
-	State    		string  `json:"state"`
-	Registrator    	string  `json:"registrator"`
-	RegisterDate 	string  `json:"registerDate"`
-}
-/************* ID-Man **************************/
-
 type Owner struct {
 	Company string    `json:"company"`
 	Quantity int      `json:"quantity"`
