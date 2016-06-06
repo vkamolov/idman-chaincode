@@ -29,9 +29,7 @@ import (
 	"fmt"
 	"strconv"
 	"time"
-	"strings"
-	"crypto/md5"
-	"encoding/hex"
+    "strings"
 
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 )
@@ -39,7 +37,6 @@ import (
 var cpPrefix = "cp:"
 var accountPrefix = "acct:"
 var accountsKey = "accounts"
-var personPrefix  = "pers:"
 
 var recentLeapYear = 2016
 
@@ -78,6 +75,11 @@ func msToTime(ms string) (time.Time, error) {
 		(msInt%millisPerSecond)*nanosPerMillisecond), nil
 }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> parent of 2fa236e... Person data structure
 type Owner struct {
 	Company string    `json:"company"`
 	Quantity int      `json:"quantity"`
