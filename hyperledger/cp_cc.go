@@ -30,8 +30,8 @@ import (
 	"strconv"
 	"time"
 	"strings"
-	"crypto/md5"
-	"encoding/hex"
+    "crypto/md5"
+    "encoding/hex"
 
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 )
