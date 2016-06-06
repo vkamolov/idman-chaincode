@@ -897,8 +897,8 @@ func GetCP(cpid string, stub *shim.ChaincodeStub) (CP, error){
 	return cp, nil
 }
 
-
-func GetAccount(companyID string, stub *shim.ChaincodeStub) (Account, error){
+/*
+func GetCompany(companyID string, stub *shim.ChaincodeStub) (Account, error){
 	var company Account
 	companyBytes, err := stub.GetState(accountPrefix+companyID)
 	if err != nil {
@@ -914,7 +914,7 @@ func GetAccount(companyID string, stub *shim.ChaincodeStub) (Account, error){
 	
 	return company, nil
 }
-
+*/
 
 // Still working on this one
 func (t *SimpleChaincode) transferPaper(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
@@ -1180,6 +1180,7 @@ func (t *SimpleChaincode) Query(stub *shim.ChaincodeStub, function string, args 
 			fmt.Println("All success, returning allCompanies")
 			return allCompaniesBytes, nil		 
 		}		
+		
 	} else if args[0] == "GetCompany" {
 		fmt.Println("Getting the company")
 		company, err := GetCompany(args[1], stub)
