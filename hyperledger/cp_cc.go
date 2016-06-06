@@ -29,7 +29,9 @@ import (
 	"fmt"
 	"strconv"
 	"time"
-    "strings"
+	"strings"
+	"crypto/md5"
+	"encoding/hex"
 
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 )
