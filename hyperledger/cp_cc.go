@@ -532,13 +532,6 @@ func (t *SimpleChaincode) verifyCompany(stub *shim.ChaincodeStub, args []string)
 		return nil, errors.New("Company not found")
 
 	} else {
-
-		
-		fmt.Println("You can't create a company which already exists")
-        return nil, errors.New("Can't a company which already exists")
-
-        //Use for updating??
-		fmt.Println("company ID exists")
 		
 		var companyRx Company
 		fmt.Println("Unmarshalling company " + company.ID)
@@ -562,7 +555,7 @@ func (t *SimpleChaincode) verifyCompany(stub *shim.ChaincodeStub, args []string)
 		}
 
 		fmt.Println("Updated company %+v\n", companyRx)
-		return nil, nil
+		return compWriteBytes, nil
 	}
 }
 
