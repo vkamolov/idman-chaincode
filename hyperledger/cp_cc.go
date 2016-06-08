@@ -690,14 +690,20 @@ func VerifyCompany(stub *shim.ChaincodeStub, sCompany string) (Company, error){
     }
 
     //Read existing company
-    var sGuid string 
     var companyDB Company
 
-    sGuid = companyPrefix + company.ID
-
-	companyDB, errDB := GetCompany(sGuid, stub)
+	companyDB, errDB := GetCompany(company.ID, stub)
 	if errDB != nil {
-		return companyDB, errors.New("Company " + company.ID + " not found")
+		return company, errors.New("Company " + company.ID + " not found")
+	}
+
+	//Verifications
+	if ( company.RegDate  != companyDB.RegDate  ||
+	     company.RegState != companyDB.RegState ||
+	     (company.ACN && company.ACN != companyDB.ACN) ||
+	     (company.ABN && company.ABN != companyDB.ABN) ) {
+
+		return company, errors.New("Company verification failed")
 	}
 
 	return companyDB, nil
