@@ -672,6 +672,7 @@ func VerifyCompany(strCompany string, stub *shim.ChaincodeStub) (Company, error)
 	
 	var sCompany string
 	var companyIn Company
+	var companyOut Company
 
 	sCompany = strCompany
 
@@ -682,7 +683,10 @@ func VerifyCompany(strCompany string, stub *shim.ChaincodeStub) (Company, error)
 		return nil, errors.New("Invalid company object to verify")
 	}
 
-	return companyIn, nil
+	companyOutBytes, errOut := stub.GetState(companyPrefix+companyIn.ID)
+	errOut = json.Unmarshal(companyOutBytes, &companyOut)
+
+	return companyOut, nil
 /*
 	//generate the company ID
 	companyIn.ID = strings.ToLower(companyIn.Name)
