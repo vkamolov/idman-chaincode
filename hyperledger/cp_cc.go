@@ -745,14 +745,13 @@ func GetCompany(companyId string, stub *shim.ChaincodeStub) (Company, error){
 func VerifyCompany(stub *shim.ChaincodeStub, args []string) (Company, error){
 
 	//args[0] = "{\"id\":\"test ltd\",\"name\":\"Test Ltd\"}"
-	
+/*	
 	//need one arg
 	if len(args) != 1 {
 		fmt.Println("error invalid arguments")
 		return nil, errors.New("Incorrect number of arguments. Expecting company record")
 	}
-	return nil, nil
-/*
+
 	var company Company
 	var err error
 
