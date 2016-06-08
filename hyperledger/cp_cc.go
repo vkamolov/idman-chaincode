@@ -688,13 +688,13 @@ func VerifyCompany(stub *shim.ChaincodeStub, sCompany string) (Company, error){
         fmt.Println("No company ID, returning error")
         return company, errors.New("company ID cannot be blank")
     }
-
+/*
     //Read existing company
-	company, err := GetCompany(companyPrefix + company.ID, stub)
-	if err != nil {
-		return company, errors.New("Company " + company.ID " not found")
+	companyDB, err := GetCompany(companyPrefix+company.ID, stub)
+	if companyDB == nil {
+		return companyDB, errors.New("Company " + company.ID " not found")
 	}
-
+*/
 	return company, nil
 }
 
