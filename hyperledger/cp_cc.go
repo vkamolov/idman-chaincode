@@ -672,7 +672,6 @@ func VerifyCompany(strCompany string, stub *shim.ChaincodeStub) (Company, error)
 	
 	var sCompany string
 	var companyIn Company
-	var companyOut Company
 
 	sCompany = strCompany
 
@@ -717,10 +716,11 @@ func VerifyCompany(strCompany string, stub *shim.ChaincodeStub) (Company, error)
         return nil, errors.New("Company not found")
 	}
     
+    var companyOut Company
 	err = json.Unmarshal(companyOutBytes, &companyOut)
     if err != nil {
         fmt.Println("Error retrieving company " + companyIn.ID)
-        return company, errors.New("Error retrieving company " + companyIn.ID)
+        return nil, errors.New("Error retrieving company " + companyIn.ID)
     }
 
     return companyOut, nil  
