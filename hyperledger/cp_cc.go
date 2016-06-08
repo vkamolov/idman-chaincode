@@ -474,7 +474,7 @@ func GetPerson(personId string, stub *shim.ChaincodeStub) (Person, error){
     err = json.Unmarshal(persBytes, &person)
     if err != nil {
         fmt.Println("Error retrieving person " + personId)
-        return person, errors.New("Error retrieving person " + personId)
+        return nil, errors.New("Error retrieving person " + personId)
     }
     
     return person, nil
@@ -651,7 +651,6 @@ func GetAllCompanies(stub *shim.ChaincodeStub) ([]Company, error){
     return allCompanies, nil
 }
 
-/*
 func GetCompany(companyId string, stub *shim.ChaincodeStub) (Company, error){
     
     //
@@ -661,12 +660,13 @@ func GetCompany(companyId string, stub *shim.ChaincodeStub) (Company, error){
     err = json.Unmarshal(compBytes, &company)
     if err != nil {
         fmt.Println("Error retrieving company " + companyId)
-        return company, errors.New("Error retrieving company " + companyId)
+        return nil, errors.New("Error retrieving company " + companyId)
     }
     
     return company, nil
 }
 
+/*
 func VerifyCompany(stub *shim.ChaincodeStub, args []string) (string, error){
 
     //need one arg
