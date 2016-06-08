@@ -673,7 +673,7 @@ func VerifyCompany(args []string, stub *shim.ChaincodeStub) (string, error) {
 		fmt.Println("error invalid arguments")
 		return nil, errors.New("Incorrect number of arguments. Expecting company record")
 	}
-
+/*
 	var companyIn Company
 	var companyOut Company
 	var err error
@@ -726,6 +726,8 @@ func VerifyCompany(args []string, stub *shim.ChaincodeStub) (string, error) {
     }
 
     return companyOut.ID, nil
+*/
+	return nil, nil    
 }
 
 /******* ID-Man *********************/
