@@ -315,7 +315,7 @@ func (t *SimpleChaincode) registerPerson(stub *shim.ChaincodeStub, args []string
 
 	//generate the Person ID
 	person.ID = strings.ToLower(person.FirstName) + strings.ToLower(person.LastName)
-	person.ID = strings.Replace(person.ID, " ", "", -1) //remove all spaces
+	//person.ID = strings.Replace(person.ID, " ", "", -1) //remove all spaces
 	//var stringHash := person.FirstName + person.LastName + person.BirthDate + person.Email + person.Gender
     //person.ID, err = genHash(stringHash)
     fmt.Println("Person ID is: ", person.ID)
@@ -501,7 +501,7 @@ func (t *SimpleChaincode) registerCompany(stub *shim.ChaincodeStub, args []strin
 
 	//generate the company ID
 	company.ID = strings.ToLower(company.Name)
-	company.ID = strings.Replace(company.ID, " ", "", -1) //remove all spaces
+	//company.ID = strings.Replace(company.ID, " ", "", -1) //remove all spaces
 	//var stringHash := person.FirstName + person.LastName + person.BirthDate + person.Email + person.Gender
     //person.ID, err = genHash(stringHash)
     fmt.Println("company ID is: ", company.ID)
