@@ -668,17 +668,18 @@ func GetCompany(companyId string, stub *shim.ChaincodeStub) (Company, error){
 
 func VerifyCompany(strCompany string, stub *shim.ChaincodeStub) (Company, error){
 
-	//
-    compBytes, err := stub.GetState(companyPrefix+strCompany)
+	var companyIn Company
+	var companyOut Company
+	var err error
+
+	fmt.Println("Unmarshalling verifying company")
+	err = json.Unmarshal([]byte(strCompany), &companyIn)
+	if err != nil {
+		fmt.Println("error invalid company Verifying")
+		return nil, errors.New("Invalid company Verifying")
+	}
     
-    var company Company
-    err = json.Unmarshal(compBytes, &company)
-    if err != nil {
-        fmt.Println("Error retrieving company " + strCompany)
-        return company, errors.New("Error retrieving company " + strCompany)
-    }
-    
-    return company, nil
+    return companyIn, nil
 }
 /*
 func VerifyCompany(args []string, stub *shim.ChaincodeStub) (Company, error) {
