@@ -697,25 +697,18 @@ func VerifyCompany(stub *shim.ChaincodeStub, sCompany string) (Company, error){
 		fmt.Println("Company not found")
 		return company, errors.New("Company " + company.ID " not found")
 	}
-    
-    return company, nil
 
-	
-/*	
-
-		
 	var companyRx Company
 	fmt.Println("Unmarshalling company " + company.ID)
 	err = json.Unmarshal(compRxBytes, &companyRx)
 	if err != nil {
 		fmt.Println("Error unmarshalling company " + company.ID)
-		return nil, errors.New("Error unmarshalling company " + company.ID)
+		return companyRx, errors.New("Error unmarshalling company " + company.ID)
 	}
 
 	fmt.Println("Returning company " + companyRx.ID)
 	fmt.Println(companyRx)
 	return companyRx, nil
-*/
 }
 
 /******* ID-Man *********************/
