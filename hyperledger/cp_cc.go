@@ -742,67 +742,71 @@ func GetCompany(companyId string, stub *shim.ChaincodeStub) (Company, error){
     return company, nil
 }
 
-/*
-func VerifyCompany(strCompany string, stub *shim.ChaincodeStub) (Company, error){
+func VerifyCompany(args []string, stub *shim.ChaincodeStub) (Company, error){
 
-	//strCompany = "{\"id\":\"test ltd\",\"name\":\"Test Ltd\"}"
+	//args[0] = "{\"id\":\"test ltd\",\"name\":\"Test Ltd\"}"
 	
-	var sCompany string
-	var companyIn Company
+	//need one arg
+	if len(args) != 1 {
+		fmt.Println("error invalid arguments")
+		return nil, errors.New("Incorrect number of arguments. Expecting company record")
+	}
 
-	sCompany = strCompany
+	var company Company
+	var err error
 
 	fmt.Println("Unmarshalling company")
-	err := json.Unmarshal([]byte(sCompany), &companyIn)
+	err = json.Unmarshal([]byte(args[0]), &company)
 	if err != nil {
-		fmt.Println("error invalid company object to verify")
-		return nil, errors.New("Invalid company object to verify")
+		fmt.Println("error invalid company register")
+		return nil, errors.New("Invalid company register")
 	}
 
 	//generate the company ID
-	companyIn.ID = strings.ToLower(companyIn.Name)
-	companyIn.ID = strings.Replace(companyIn.ID, " ", "", -1) //remove all spaces
+	company.ID = strings.ToLower(company.Name)
+	company.ID = strings.Replace(company.ID, " ", "", -1) //remove all spaces
+	//var stringHash := person.FirstName + person.LastName + person.BirthDate + person.Email + person.Gender
+    //person.ID, err = genHash(stringHash)
+    fmt.Println("company ID is: ", company.ID)
 
-    fmt.Println("company ID is: ", companyIn.ID)
-
-    if companyIn.ID == "" {
+    if company.ID == "" {
         fmt.Println("No company ID, returning error")
         return nil, errors.New("company ID cannot be blank")
     }
-    fmt.Println("company ID is: ", companyIn.ID)
-    fmt.Println("company Name is: ", companyIn.Name)
-	fmt.Println("company ACN is: ", companyIn.ACN)
-	fmt.Println("company ABN is: ", companyIn.ABN)
-	fmt.Println("company RegDate is: ", companyIn.RegDate)
-	fmt.Println("company RegState is: ", companyIn.RegState)
-    fmt.Println("company Address is: ", companyIn.Address)
-    fmt.Println("company City is: ", companyIn.City)
-    fmt.Println("company Postcode is: ", companyIn.Postcode)
-    fmt.Println("company State is: ", companyIn.State)
-    fmt.Println("Registrator is: ", companyIn.Registrator)
-    fmt.Println("RegisterDate is: ", companyIn.RegisterDate)
+    fmt.Println("company ID is: ", company.ID)
+    fmt.Println("company Name is: ", company.Name)
+	fmt.Println("company ACN is: ", company.ACN)
+	fmt.Println("company ABN is: ", company.ABN)
+	fmt.Println("company RegDate is: ", company.RegDate)
+	fmt.Println("company RegState is: ", company.RegState)
+    fmt.Println("company Address is: ", company.Address)
+    fmt.Println("company City is: ", company.City)
+    fmt.Println("company Postcode is: ", company.Postcode)
+    fmt.Println("company State is: ", company.State)
+    fmt.Println("Registrator is: ", company.Registrator)
+    fmt.Println("RegisterDate is: ", company.RegisterDate)
 
 	fmt.Println("Marshalling company bytes")
-	fmt.Println("Getting State on company " + companyIn.ID)
+	fmt.Println("Getting State on company " + company.ID)
+	compRxBytes, err := stub.GetState(companyPrefix+company.ID)
 
-	//Reading company from blockchain
-	companyOutBytes, err := stub.GetState(companyPrefix+companyIn.ID)
-
-	if companyOutBytes == nil {
-		fmt.Println("Company not found, returning error")
-        return nil, errors.New("Company not found")
+	if compRxBytes == nil {
+		fmt.Println("Company not found")
+		return nil, errors.New("Company not found")
 	}
-    
-    var companyOut Company
-	err = json.Unmarshal(companyOutBytes, &companyOut)
-    if err != nil {
-        fmt.Println("Error retrieving company " + companyIn.ID)
-        return nil, errors.New("Error retrieving company " + companyIn.ID)
-    }
+		
+	var companyRx Company
+	fmt.Println("Unmarshalling company " + company.ID)
+	err = json.Unmarshal(compRxBytes, &companyRx)
+	if err != nil {
+		fmt.Println("Error unmarshalling company " + company.ID)
+		return nil, errors.New("Error unmarshalling company " + company.ID)
+	}
 
-    return companyOut, nil  
+	fmt.Println("Returning company " + companyRx.ID)
+	fmt.Println(companyRx)
+	return companyRx, nil
 }
-*/
 
 /******* ID-Man *********************/
 
@@ -1343,10 +1347,10 @@ func (t *SimpleChaincode) Query(stub *shim.ChaincodeStub, function string, args 
 			fmt.Println("All success, returning the company")
 			return companyBytes, nil		 
 		}
-/*
+
 	} else if args[0] == "VerifyCompany" {
 		fmt.Println("Verifying the company")
-		company, err := VerifyCompany(args[1], stub)
+		company, err := VerifyCompany([args[1]], stub)
 		if err != nil {
 			fmt.Println("Error from VerifyCompany")
 			return nil, err
@@ -1359,7 +1363,7 @@ func (t *SimpleChaincode) Query(stub *shim.ChaincodeStub, function string, args 
 			fmt.Println("All success, returning the company")
 			return companyBytes, nil		 
 		}	
-*/
+
 /************* ID-Man **************************/
 
 	} else {
