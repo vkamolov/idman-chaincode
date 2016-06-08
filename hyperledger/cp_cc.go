@@ -479,7 +479,7 @@ func GetPerson(personId string, stub *shim.ChaincodeStub) (Person, error){
     return person, nil
 }
 
-/*
+
 func (t *SimpleChaincode) registerCompany(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
 
 	//need one arg
@@ -663,7 +663,7 @@ func GetCompany(companyId string, stub *shim.ChaincodeStub) (Company, error){
     
     return company, nil
 }
-*/
+
 /******* ID-Man *********************/
 
 
@@ -1171,7 +1171,7 @@ func (t *SimpleChaincode) Query(stub *shim.ChaincodeStub, function string, args 
 			fmt.Println("All success, returning the person")
 			return personBytes, nil		 
 		}
-/*
+
 	} else if args[0] == "GetAllCompanies" {
 		fmt.Println("Getting all Companies")
 		allCompanies, err := GetAllCompanies(stub)
@@ -1203,7 +1203,7 @@ func (t *SimpleChaincode) Query(stub *shim.ChaincodeStub, function string, args 
 			fmt.Println("All success, returning the company")
 			return companyBytes, nil		 
 		}
-*/		
+		
 /************* ID-Man **************************/
 
 	} else {
@@ -1237,11 +1237,11 @@ func (t *SimpleChaincode) Invoke(stub *shim.ChaincodeStub, function string, args
 	} else if function == "registerPerson" {
         //Create a Person
         return t.registerPerson(stub, args)	
-/*
+
 	} else if function == "registerCompany" {
         //Create a Company
         return t.registerCompany(stub, args)
-*/
+
 /************* ID-Man **************************/      
 	} else if function == "transferPaper" {
 		fmt.Println("Firing cretransferPaperateAccounts")
