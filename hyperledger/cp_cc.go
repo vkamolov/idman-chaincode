@@ -497,12 +497,121 @@ func (t *SimpleChaincode) verifyCompany(stub *shim.ChaincodeStub, args []string)
 		fmt.Println("error invalid company register")
 		return nil, errors.New("Invalid company register")
 	}
-	if company.ID == nil {
-		fmt.Println("error invalid company register")
-		return nil, errors.New("Invalid company register")
-	}
 
-	return nil, nil
+	//generate the company ID
+	company.ID = strings.ToLower(company.Name)
+	company.ID = strings.Replace(company.ID, " ", "", -1) //remove all spaces
+	//var stringHash := person.FirstName + person.LastName + person.BirthDate + person.Email + person.Gender
+    //person.ID, err = genHash(stringHash)
+    fmt.Println("company ID is: ", company.ID)
+
+    if company.ID == "" {
+        fmt.Println("No company ID, returning error")
+        return nil, errors.New("company ID cannot be blank")
+    }
+    fmt.Println("company ID is: ", company.ID)
+    fmt.Println("company FirstName is: ", company.Name)
+	fmt.Println("company ACN is: ", company.ACN)
+	fmt.Println("company ABN is: ", company.ABN)
+	fmt.Println("company RegDate is: ", company.RegDate)
+	fmt.Println("company RegState is: ", company.RegState)
+    fmt.Println("company Address is: ", company.Address)
+    fmt.Println("company City is: ", company.City)
+    fmt.Println("company Postcode is: ", company.Postcode)
+    fmt.Println("company State is: ", company.State)
+    fmt.Println("Registrator is: ", company.Registrator)
+    fmt.Println("RegisterDate is: ", company.RegisterDate)
+
+	fmt.Println("Marshalling company bytes")
+	fmt.Println("Getting State on company " + company.ID)
+	compRxBytes, err := stub.GetState(companyPrefix+company.ID)
+
+	if compRxBytes == nil {
+
+		fmt.Println("ID does not exist, creating it")
+		compBytes, err := json.Marshal(&company)
+		if err != nil {
+			fmt.Println("Error marshalling company")
+			return nil, errors.New("Error registering company")
+		}
+		err = stub.PutState(companyPrefix+company.ID, compBytes)
+		if err != nil {
+			fmt.Println("Error registering company")
+			return nil, errors.New("Error registering company")
+		}
+		
+		// Update the company keys by adding the new key
+		fmt.Println("Getting company Keys")
+		keysBytes, err := stub.GetState(companyKeysID)
+		if err != nil {
+			fmt.Println("Error retrieving company keys")
+			return nil, errors.New("Error retrieving company keys")
+		}
+		var keys []string
+		err = json.Unmarshal(keysBytes, &keys)
+		if err != nil {
+			fmt.Println("Error unmarshel keys")
+			return nil, errors.New("Error unmarshalling company keys ")
+		}
+		
+		fmt.Println("Appending the new key to company Keys")
+		foundKey := false
+		for _, key := range keys {
+			if key == companyPrefix+company.ID {
+				foundKey = true
+			}
+		}
+		if foundKey == false {
+			keys = append(keys, companyPrefix+company.ID)
+			keysBytesToWrite, err := json.Marshal(&keys)
+			if err != nil {
+				fmt.Println("Error marshalling keys")
+				return nil, errors.New("Error marshalling the keys")
+			}
+			fmt.Println("Put state on company Keys")
+			err = stub.PutState(companyKeysID, keysBytesToWrite)
+			if err != nil {
+				fmt.Println("Error writting company keys back")
+				return nil, errors.New("Error writing the company keys back")
+			}
+		}
+		
+		fmt.Println("Register company %+v\n", company)
+		return nil, nil
+
+	} else {
+
+		
+		fmt.Println("You can't create a company which already exists")
+        return nil, errors.New("Can't a company which already exists")
+
+        //Use for updating??
+		fmt.Println("company ID exists")
+		
+		var companyRx Company
+		fmt.Println("Unmarshalling company " + company.ID)
+		err = json.Unmarshal(compRxBytes, &companyRx)
+		if err != nil {
+			fmt.Println("Error unmarshalling company " + company.ID)
+			return nil, errors.New("Error unmarshalling company " + company.ID)
+		}
+		
+		companyRx.Address = company.Address
+						
+		compWriteBytes, err := json.Marshal(&companyRx)
+		if err != nil {
+			fmt.Println("Error marshalling company")
+			return nil, errors.New("Error registering a company")
+		}
+		err = stub.PutState(companyPrefix+company.ID, compWriteBytes)
+		if err != nil {
+			fmt.Println("Error registering company")
+			return nil, errors.New("Error registering company")
+		}
+
+		fmt.Println("Updated company %+v\n", companyRx)
+		return nil, nil
+	}
 }
 
 func (t *SimpleChaincode) registerCompany(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
