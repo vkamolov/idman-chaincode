@@ -82,6 +82,11 @@ func msToTime(ms string) (time.Time, error) {
 }
 
 /************* ID-Man **************************/
+type UrlLink struct {
+    Url         string   `json:"url"`
+    UrlType     string   `json:"urlType"`
+}
+
 type Person struct {
 	ID				string  `json:"id"`
 	FirstName		string 	`json:"firstName"`
@@ -89,10 +94,13 @@ type Person struct {
 	Email			string 	`json:"email"`
 	BirthDate		string 	`json:"birthDate"`
 	Gender			string 	`json:"gender"`
+	DrivingLicence	string 	`json:"drivingLicence"`
+	TFN 			string 	`json:"tfn"`
 	Address   		string  `json:"address"`
 	City     		string  `json:"city"`
 	Postcode 		string  `json:"postcode"`
 	State    		string  `json:"state"`
+	UrlLinks      []UrlLink `json:"urlLinks"`
 	Registrator    	string  `json:"registrator"`
 	RegisterDate 	string  `json:"registerDate"`
 }
@@ -108,6 +116,7 @@ type Company struct {
 	City     		string  `json:"city"`
 	Postcode 		string  `json:"postcode"`
 	State    		string  `json:"state"`
+	UrlLinks      []UrlLink `json:"urlLinks"`
 	Registrator    	string  `json:"registrator"`
 	RegisterDate 	string  `json:"registerDate"`
 }
@@ -510,7 +519,7 @@ func VerifyPerson(stub *shim.ChaincodeStub, sPerson string) (Person, error){
 	}
 
 	//Verifications (we don't check names. cause it's a part of the key)
-	if 	(person.Email != personDB.Email) || (person.BirthDate != personDB.BirthDate) {
+	if 	(person.Email != personDB.Email) || (person.BirthDate != personDB.BirthDate) || (person.DrivingLicence != personDB.DrivingLicence) {
 
 		return person, errors.New("Person verification failed")
 	}
