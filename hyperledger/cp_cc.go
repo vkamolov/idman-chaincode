@@ -1270,6 +1270,22 @@ func (t *SimpleChaincode) Query(stub *shim.ChaincodeStub, function string, args 
 			fmt.Println("All success, returning the company")
 			return companyBytes, nil		 
 		}
+
+	} else if args[0] == "GetCompany" {
+		fmt.Println("Getting the company")
+		company, err := GetCompany(args[1], stub)
+		if err != nil {
+			fmt.Println("Error from getCompany")
+			return nil, err
+		} else {
+			companyBytes, err1 := json.Marshal(&company)
+			if err1 != nil {
+				fmt.Println("Error marshalling the company")
+				return nil, err1
+			}	
+			fmt.Println("All success, returning the company")
+			return companyBytes, nil		 
+		}	
 /*
 	} else if args[0] == "VerifyCompany" {
 		fmt.Println("Getting the company")
