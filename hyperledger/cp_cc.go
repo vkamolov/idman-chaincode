@@ -707,7 +707,7 @@ func VerifyCompany(strCompany string, stub *shim.ChaincodeStub) (Company, error)
 
 	fmt.Println("Marshalling company bytes")
 	fmt.Println("Getting State on company " + companyIn.ID)
-
+/*
 	//Reading company from blockchain
 	companyOutBytes, err := stub.GetState(companyPrefix+companyIn.ID)
 
@@ -724,6 +724,8 @@ func VerifyCompany(strCompany string, stub *shim.ChaincodeStub) (Company, error)
     }
 
     return companyOut, nil  
+*/
+    return nil, nil
 }
 
 /******* ID-Man *********************/
