@@ -668,40 +668,20 @@ func GetCompany(companyId string, stub *shim.ChaincodeStub) (Company, error){
 
 func VerifyCompany(strCompany string, stub *shim.ChaincodeStub) (Company, error){
 
-	var sCompany string
-	var companyIn Company 
-	sCompany = strCompany //"{\"id\":\"test ltd\",\"name\":\"Test Ltd\"}"
+	//strCompany = "{\"id\":\"test ltd\",\"name\":\"Test Ltd\"}"
 	
-	err := json.Unmarshal([]byte(sCompany), &companyIn)
-	if err != nil {
-		fmt.Println("error invalid company Verifying")
-		fmt.Println(err)
-	}
-	fmt.Println(companyIn.ID)
-	fmt.Println(companyIn.Name)
-	fmt.Println(companyIn)
-    
-    return companyIn, nil
-}
-/*
-func VerifyCompany(args []string, stub *shim.ChaincodeStub) (Company, error) {
-
-
-    //need one arg
-	if len(args) != 1 {
-		fmt.Println("error invalid arguments")
-		return nil, errors.New("Incorrect number of arguments. Expecting company record")
-	}
-
+	var sCompany string
 	var companyIn Company
 	var companyOut Company
 	var err error
 
+	sCompany = strCompany
+
 	fmt.Println("Unmarshalling company")
-	err = json.Unmarshal([]byte(args[0]), &companyIn)
+	err = json.Unmarshal([]byte(sCompany), &companyIn)
 	if err != nil {
-		fmt.Println("error invalid company register")
-		return nil, errors.New("Invalid company register")
+		fmt.Println("error invalid company object to verify")
+		return nil, errors.New("Invalid company object to verify")
 	}
 
 	//generate the company ID
@@ -744,11 +724,9 @@ func VerifyCompany(args []string, stub *shim.ChaincodeStub) (Company, error) {
         return company, errors.New("Error retrieving company " + companyIn.ID)
     }
 
-    return companyOut.ID, nil  
-
-    return nil, nil
+    return companyOut, nil  
 }
-*/
+
 /******* ID-Man *********************/
 
 
