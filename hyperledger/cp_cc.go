@@ -541,6 +541,7 @@ func (t *SimpleChaincode) verifyCompany(stub *shim.ChaincodeStub, args []string)
 			return nil, errors.New("Error unmarshalling company " + company.ID)
 		}
 
+		companyRx.Address = "new"
 		fmt.Println("Marshalling company " + companyRx.ID)
 		compRxBytes2, err1 := json.Marshal(&companyRx)
 		if err != nil {
