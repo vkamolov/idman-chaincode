@@ -315,6 +315,7 @@ func (t *SimpleChaincode) registerPerson(stub *shim.ChaincodeStub, args []string
 
 	//generate the Person ID
 	person.ID = strings.ToLower(person.FirstName) + strings.ToLower(person.LastName)
+	person.ID = strings.Replace(person.ID, " ", "", -1) //remove all spaces
 	//var stringHash := person.FirstName + person.LastName + person.BirthDate + person.Email + person.Gender
     //person.ID, err = genHash(stringHash)
     fmt.Println("Person ID is: ", person.ID)
