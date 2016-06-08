@@ -674,7 +674,7 @@ func VerifyCompany(strCompany string, stub *shim.ChaincodeStub) (Company, error)
 	var companyIn Company
 	var companyOut Company
 
-	sCompany = strCompany
+	sCompany = ""
 
 	fmt.Println("Unmarshalling company")
 	err := json.Unmarshal([]byte(sCompany), &companyIn)
