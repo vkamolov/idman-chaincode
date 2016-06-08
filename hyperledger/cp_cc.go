@@ -689,18 +689,16 @@ func VerifyCompany(stub *shim.ChaincodeStub, sCompany string) (Company, error){
         return company, errors.New("company ID cannot be blank")
     }
 
-//    return company, nil
-
-
     //Read existing company
     fmt.Println("Getting State on company " + company.ID)
-	compRxBytes, err := stub.GetState(companyPrefix+company.ID)
+	compRxBytes, err1 := stub.GetState(companyPrefix+company.ID)
 
 	if compRxBytes == nil {
 		fmt.Println("Company not found")
 		return company, errors.New("Company " + company.ID " not found")
 	}
 
+/*
 	var companyRx Company
 	fmt.Println("Unmarshalling company " + company.ID)
 	err = json.Unmarshal(compRxBytes, &companyRx)
@@ -712,6 +710,9 @@ func VerifyCompany(stub *shim.ChaincodeStub, sCompany string) (Company, error){
 	fmt.Println("Returning company " + companyRx.ID)
 	fmt.Println(companyRx)
 	return companyRx, nil
+	*/
+
+	return company, nil
 }
 
 /******* ID-Man *********************/
