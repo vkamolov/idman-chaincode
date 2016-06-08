@@ -690,23 +690,10 @@ func VerifyCompany(stub *shim.ChaincodeStub, sCompany string) (Company, error){
     }
 
     //Read existing company
-	compRxBytes, err := stub.GetState(companyPrefix + company.ID)
+	company, err := GetCompany(companyPrefix + company.ID, stub)
 	if err != nil {
 		return company, errors.New("Company " + company.ID " not found")
 	}
-
-
-	//var companyRx Company
-	err = json.Unmarshal(compRxBytes, &company)
-	if err != nil {
-		fmt.Println("Error unmarshalling company ")
-		return company, errors.New("Error unmarshalling company ")
-	}
-/*
-	fmt.Println("Returning company " + companyRx.ID)
-	fmt.Println(companyRx)
-	return companyRx, nil
-	*/
 
 	return company, nil
 }
