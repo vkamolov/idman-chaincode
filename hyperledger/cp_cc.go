@@ -666,7 +666,9 @@ func GetCompany(companyId string, stub *shim.ChaincodeStub) (Company, error){
 }
 
 func VerifyCompany(stub *shim.ChaincodeStub, sCompany string) (Company, error){
-   
+
+    //sCompany = "{\"id\":\"test ltd\",\"name\":\"Test Ltd\"}"
+
     var err error
     var company Company
 
@@ -676,26 +678,6 @@ func VerifyCompany(stub *shim.ChaincodeStub, sCompany string) (Company, error){
         fmt.Println("Error retrieving company  + companyId")
         return company, errors.New("Error retrieving company  + companyId")
     }
-    
-    return company, nil
-
-	//args[0] = "{\"id\":\"test ltd\",\"name\":\"Test Ltd\"}"
-/*	
-	//need one arg
-	if len(args) != 1 {
-		fmt.Println("error invalid arguments")
-		return nil, errors.New("Incorrect number of arguments. Expecting company record")
-	}
-
-	var company Company
-	var err error
-
-	fmt.Println("Unmarshalling company")
-	err = json.Unmarshal([]byte(args[0]), &company)
-	if err != nil {
-		fmt.Println("error invalid company register")
-		return nil, errors.New("Invalid company register")
-	}
 
 	//generate the company ID
 	company.ID = strings.ToLower(company.Name)
@@ -706,6 +688,16 @@ func VerifyCompany(stub *shim.ChaincodeStub, sCompany string) (Company, error){
         fmt.Println("No company ID, returning error")
         return nil, errors.New("company ID cannot be blank")
     }
+    
+    return company, nil
+
+	
+/*	
+
+
+
+
+
     fmt.Println("company ID is: ", company.ID)
     fmt.Println("company Name is: ", company.Name)
 	fmt.Println("company ACN is: ", company.ACN)
