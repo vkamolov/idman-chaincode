@@ -542,20 +542,8 @@ func (t *SimpleChaincode) verifyCompany(stub *shim.ChaincodeStub, args []string)
 		}
 		
 		companyRx.Address = company.Address
-						
-		compWriteBytes, err := json.Marshal(&companyRx)
-		if err != nil {
-			fmt.Println("Error marshalling company")
-			return nil, errors.New("Error registering a company")
-		}
-		err = stub.PutState(companyPrefix+company.ID, compWriteBytes)
-		if err != nil {
-			fmt.Println("Error registering company")
-			return nil, errors.New("Error registering company")
-		}
 
-		fmt.Println("Updated company %+v\n", companyRx)
-		return compWriteBytes, nil
+		return companyRx, nil
 	}
 }
 
