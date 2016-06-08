@@ -669,7 +669,7 @@ func GetCompany(companyId string, stub *shim.ChaincodeStub) (Company, error){
 func VerifyCompany(strCompany string, stub *shim.ChaincodeStub) (Company, error){
 
 	var companyIn Company
-	var companyOut Company
+	//var companyOut Company
 	var err error
 
 	fmt.Println("Unmarshalling company")
