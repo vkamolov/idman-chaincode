@@ -688,37 +688,21 @@ func VerifyCompany(stub *shim.ChaincodeStub, sCompany string) (Company, error){
         fmt.Println("No company ID, returning error")
         return company, errors.New("company ID cannot be blank")
     }
+
+    //Read existing company
+    fmt.Println("Getting State on company " + company.ID)
+	compRxBytes, err := stub.GetState(companyPrefix+company.ID)
+
+	if compRxBytes == nil {
+		fmt.Println("Company not found")
+		return company, errors.New("Company " + company.ID " not found")
+	}
     
     return company, nil
 
 	
 /*	
 
-
-
-
-
-    fmt.Println("company ID is: ", company.ID)
-    fmt.Println("company Name is: ", company.Name)
-	fmt.Println("company ACN is: ", company.ACN)
-	fmt.Println("company ABN is: ", company.ABN)
-	fmt.Println("company RegDate is: ", company.RegDate)
-	fmt.Println("company RegState is: ", company.RegState)
-    fmt.Println("company Address is: ", company.Address)
-    fmt.Println("company City is: ", company.City)
-    fmt.Println("company Postcode is: ", company.Postcode)
-    fmt.Println("company State is: ", company.State)
-    fmt.Println("Registrator is: ", company.Registrator)
-    fmt.Println("RegisterDate is: ", company.RegisterDate)
-
-	fmt.Println("Marshalling company bytes")
-	fmt.Println("Getting State on company " + company.ID)
-	compRxBytes, err := stub.GetState(companyPrefix+company.ID)
-
-	if compRxBytes == nil {
-		fmt.Println("Company not found")
-		return nil, errors.New("Company not found")
-	}
 		
 	var companyRx Company
 	fmt.Println("Unmarshalling company " + company.ID)
