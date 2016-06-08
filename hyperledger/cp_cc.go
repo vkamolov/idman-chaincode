@@ -666,19 +666,20 @@ func GetCompany(companyId string, stub *shim.ChaincodeStub) (Company, error){
     return company, nil
 }
 
-func VerifyCompany(companyId string, stub *shim.ChaincodeStub) (Company, error){
+func VerifyCompany(strCompany string, stub *shim.ChaincodeStub) (Company, error){
+
+	var companyIn Company
+	var companyOut Company
+	var err error
+
+	fmt.Println("Unmarshalling company")
+	err = json.Unmarshal([]byte(strCompany), &companyIn)
+	if err != nil {
+		fmt.Println("error invalid company register")
+		return nil, errors.New("Invalid company register")
+	}
     
-    //
-    compBytes, err := stub.GetState(companyPrefix+companyId)
-    
-    var company Company
-    err = json.Unmarshal(compBytes, &company)
-    if err != nil {
-        fmt.Println("Error retrieving company " + companyId)
-        return company, errors.New("Error retrieving company " + companyId)
-    }
-    
-    return company, nil
+    return nil, nil
 }
 /*
 func VerifyCompany(args []string, stub *shim.ChaincodeStub) (Company, error) {
@@ -1301,23 +1302,7 @@ func (t *SimpleChaincode) Query(stub *shim.ChaincodeStub, function string, args 
 			fmt.Println("All success, returning the company")
 			return companyBytes, nil		 
 		}	
-/*
-	} else if args[0] == "VerifyCompany" {
-		fmt.Println("Getting the company")
-		verifiedCompany, err := VerifyCompany(args[1], stub)
-		if err != nil {
-			fmt.Println("Error from VerifyCompany")
-			return nil, err
-		} else {
-			verifiedCompanyBytes, err1 := json.Marshal(&verifiedCompany)
-			if err1 != nil {
-				fmt.Println("Error marshalling the company")
-				return nil, err1
-			}	
-			fmt.Println("All success, returning the company")
-			return verifiedCompanyBytes, nil		 
-		}
-*/		
+
 /************* ID-Man **************************/
 
 	} else {
