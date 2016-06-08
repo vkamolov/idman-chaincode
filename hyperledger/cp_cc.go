@@ -1272,18 +1272,18 @@ func (t *SimpleChaincode) Query(stub *shim.ChaincodeStub, function string, args 
 
 	} else if args[0] == "VerifyCompany" {
 		fmt.Println("Getting the company")
-		company, err := VerifyCompany(args[1], stub)
+		verifiedCompany, err := VerifyCompany(args[1], stub)
 		if err != nil {
 			fmt.Println("Error from VerifyCompany")
 			return nil, err
 		} else {
-			companyBytes, err1 := json.Marshal(&company)
+			verifiedCompanyBytes, err1 := json.Marshal(&verifiedCompany)
 			if err1 != nil {
 				fmt.Println("Error marshalling the company")
 				return nil, err1
 			}	
 			fmt.Println("All success, returning the company")
-			return companyBytes, nil		 
+			return verifiedCompanyBytes, nil		 
 		}
 		
 /************* ID-Man **************************/
