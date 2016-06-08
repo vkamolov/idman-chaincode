@@ -541,7 +541,10 @@ func (t *SimpleChaincode) verifyCompany(stub *shim.ChaincodeStub, args []string)
 			return nil, errors.New("Error unmarshalling company " + company.ID)
 		}
 
-		fmt.Println("Returning company " + company.ID)
+		fmt.Println("Marshalling company " + company.ID)
+		compRxBytes, err := json.Marshal(&companyRx)
+
+		fmt.Println("Returning company " + companyRx.ID)
 		fmt.Println(compRxBytes)
 		return compRxBytes, nil
 	}
