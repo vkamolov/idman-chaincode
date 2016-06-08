@@ -1298,6 +1298,22 @@ func (t *SimpleChaincode) Query(stub *shim.ChaincodeStub, function string, args 
 			}	
 			fmt.Println("All success, returning the company")
 			return companyBytes, nil		 
+		}
+
+	} else if args[0] == "VerifyPerson" {
+		fmt.Println("Verifying the person")
+		person, err := VerifyPerson(stub, args[1])
+		if err != nil {
+			fmt.Println("Error from VerifyPerson")
+			return nil, err
+		} else {
+			personBytes, err1 := json.Marshal(&person)
+			if err1 != nil {
+				fmt.Println("Error marshalling the person")
+				return nil, err1
+			}	
+			fmt.Println("All success, returning the person")
+			return personBytes, nil		 
 		}	
 
 /************* ID-Man **************************/
