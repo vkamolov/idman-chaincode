@@ -689,6 +689,9 @@ func VerifyCompany(stub *shim.ChaincodeStub, sCompany string) (Company, error){
         return company, errors.New("company ID cannot be blank")
     }
 
+    return company, nil
+
+/*
     //Read existing company
     fmt.Println("Getting State on company " + company.ID)
 	compRxBytes, err := stub.GetState(companyPrefix+company.ID)
@@ -709,6 +712,7 @@ func VerifyCompany(stub *shim.ChaincodeStub, sCompany string) (Company, error){
 	fmt.Println("Returning company " + companyRx.ID)
 	fmt.Println(companyRx)
 	return companyRx, nil
+*/	
 }
 
 /******* ID-Man *********************/
