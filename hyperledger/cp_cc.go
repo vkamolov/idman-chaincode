@@ -665,10 +665,10 @@ func GetCompany(companyId string, stub *shim.ChaincodeStub) (Company, error){
     
     return company, nil
 }
-
+/*
 func VerifyCompany(args []string, stub *shim.ChaincodeStub) (Company, error) {
 
-/*
+
     //need one arg
 	if len(args) != 1 {
 		fmt.Println("error invalid arguments")
@@ -727,10 +727,10 @@ func VerifyCompany(args []string, stub *shim.ChaincodeStub) (Company, error) {
     }
 
     return companyOut.ID, nil  
-*/
+
     return nil, nil
 }
-
+*/
 /******* ID-Man *********************/
 
 
@@ -1270,7 +1270,7 @@ func (t *SimpleChaincode) Query(stub *shim.ChaincodeStub, function string, args 
 			fmt.Println("All success, returning the company")
 			return companyBytes, nil		 
 		}
-
+/*
 	} else if args[0] == "VerifyCompany" {
 		fmt.Println("Getting the company")
 		verifiedCompany, err := VerifyCompany(args[1], stub)
@@ -1286,7 +1286,7 @@ func (t *SimpleChaincode) Query(stub *shim.ChaincodeStub, function string, args 
 			fmt.Println("All success, returning the company")
 			return verifiedCompanyBytes, nil		 
 		}
-		
+*/		
 /************* ID-Man **************************/
 
 	} else {
