@@ -700,7 +700,9 @@ func VerifyCompany(stub *shim.ChaincodeStub, sCompany string) (Company, error){
 		return companyDB, errors.New("Company " + company.ID " not found")
 	}
 
-	return companyDB, nil
+	company = companyDB
+
+	return company, nil
 }
 
 /******* ID-Man *********************/
