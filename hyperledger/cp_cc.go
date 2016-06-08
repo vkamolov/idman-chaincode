@@ -667,7 +667,7 @@ func GetCompany(companyId string, stub *shim.ChaincodeStub) (Company, error){
 }
 
 func VerifyCompany(args []string, stub *shim.ChaincodeStub) (Company, error) {
-/*
+
     //need one arg
 	if len(args) != 1 {
 		fmt.Println("error invalid arguments")
@@ -725,9 +725,7 @@ func VerifyCompany(args []string, stub *shim.ChaincodeStub) (Company, error) {
         return company, errors.New("Error retrieving company " + companyIn.ID)
     }
 
-    return companyOut.ID, nil
-*/
-	return nil, nil    
+    return companyOut.ID, nil  
 }
 
 /******* ID-Man *********************/
