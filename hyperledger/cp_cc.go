@@ -480,6 +480,44 @@ func GetPerson(personId string, stub *shim.ChaincodeStub) (Person, error){
     return person, nil
 }
 
+func VerifyPerson(stub *shim.ChaincodeStub, sPerson string) (Person, error){
+
+    var err error
+    var person Person
+
+    err = json.Unmarshal([]byte(sPerson), &person)
+
+    if err != nil {
+        return person, errors.New("Error unmarshalling verifying person")
+    }
+
+	//generate the person ID
+	person.ID = strings.ToLower(person.FirstName) + strings.ToLower(person.LastName)
+	person.ID = strings.Replace(person.ID, " ", "", -1) //remove all spaces
+    fmt.Println("person ID is: ", person.ID)
+
+    if person.ID == "" {
+        fmt.Println("No person ID, returning error")
+        return person, errors.New("person ID cannot be blank")
+    }
+
+    //Read existing person
+    var personDB Person
+
+	personDB, errDB := GetPErson(person.ID, stub)
+	if errDB != nil {
+		return person, errors.New("Person " + person.ID + " not found")
+	}
+
+	//Verifications (we don't check names. cause it's a part of the key)
+	if 	(person.Email != personDB.Email) || (person.BirthDate != personDB.BirthDate) {
+
+		return person, errors.New("Person verification failed")
+	}
+
+	return personDB, nil
+}
+
 func (t *SimpleChaincode) registerCompany(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
 
 	//need one arg
