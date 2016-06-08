@@ -651,7 +651,7 @@ func GetAllCompanies(stub *shim.ChaincodeStub) ([]Company, error){
     return allCompanies, nil
 }
 
-func GetCompany(companyId string, stub *shim.ChaincodeStub) (Company, error){
+func GetCompany(stub *shim.ChaincodeStub, companyId string) (Company, error){
     
     //
     compBytes, err := stub.GetState(companyPrefix+companyId)
@@ -677,7 +677,7 @@ func VerifyCompany(stub *shim.ChaincodeStub, args []string) (string, error){
 	var companyIn Company
 	var companyOut Company
 	var err error
-/*
+
 	fmt.Println("Unmarshalling company")
 	err = json.Unmarshal([]byte(args[0]), &companyIn)
 	if err != nil {
@@ -696,7 +696,7 @@ func VerifyCompany(stub *shim.ChaincodeStub, args []string) (string, error){
         return nil, errors.New("company ID cannot be blank")
     }
     fmt.Println("company ID is: ", companyIn.ID)
-    fmt.Println("company Name is: ", companyIn.Name)
+    fmt.Println("company FirstName is: ", companyIn.Name)
 	fmt.Println("company ACN is: ", companyIn.ACN)
 	fmt.Println("company ABN is: ", companyIn.ABN)
 	fmt.Println("company RegDate is: ", companyIn.RegDate)
@@ -726,8 +726,6 @@ func VerifyCompany(stub *shim.ChaincodeStub, args []string) (string, error){
     }
 
     return companyOut.ID, nil
-*/
-    return "test", nil
 }
 
 /******* ID-Man *********************/
