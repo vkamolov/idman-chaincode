@@ -651,6 +651,7 @@ func GetAllCompanies(stub *shim.ChaincodeStub) ([]Company, error){
     return allCompanies, nil
 }
 
+/*
 func GetCompany(companyId string, stub *shim.ChaincodeStub) (Company, error){
     
     //
@@ -677,7 +678,7 @@ func VerifyCompany(stub *shim.ChaincodeStub, args []string) (string, error){
 	var companyIn Company
 	var companyOut Company
 	var err error
-/*
+
 	fmt.Println("Unmarshalling company")
 	err = json.Unmarshal([]byte(args[0]), &companyIn)
 	if err != nil {
@@ -726,10 +727,8 @@ func VerifyCompany(stub *shim.ChaincodeStub, args []string) (string, error){
     }
 
     return companyOut.ID, nil
-*/
-    return "test", nil
 }
-
+*/
 /******* ID-Man *********************/
 
 
