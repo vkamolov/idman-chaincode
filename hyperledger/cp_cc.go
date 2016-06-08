@@ -497,7 +497,7 @@ func (t *SimpleChaincode) verifyCompany(stub *shim.ChaincodeStub, args []string)
 		fmt.Println("error invalid company register")
 		return nil, errors.New("Invalid company register")
 	}
-	if company.ID = nil {
+	if company.ID == nil {
 		fmt.Println("error invalid company register")
 		return nil, errors.New("Invalid company register")
 	}
