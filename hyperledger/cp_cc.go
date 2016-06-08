@@ -703,7 +703,6 @@ func VerifyCompany(stub *shim.ChaincodeStub, sCompany string) (Company, error){
 /*		||
 		((company.ACN != "") && (company.ACN != companyDB.ACN)) ||
 		((company.ABN != "") && (company.ABN != companyDB.ABN)) */
-		{ 
 
 		return company, errors.New("Company verification failed")
 	}
