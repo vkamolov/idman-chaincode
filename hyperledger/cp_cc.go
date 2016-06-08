@@ -697,11 +697,11 @@ func VerifyCompany(stub *shim.ChaincodeStub, sCompany string) (Company, error){
 		return company, errors.New("Company " + company.ID + " not found")
 	}
 
-	//Verifications
-	if ( company.RegDate  != companyDB.RegDate  ||
-	     company.RegState != companyDB.RegState ||
-	     (company.ACN && company.ACN != companyDB.ACN) ||
-	     (company.ABN && company.ABN != companyDB.ABN) ) {
+	//Verifications (we don't check name. cause it's a part of the key)
+	if 	(company.RegDate != companyDB.RegDate) || 
+		(company.RegState != companyDB.RegState) ||
+		((company.ACN != "") && (company.ACN != companyDB.ACN)) ||
+		((company.ABN != "") && (company.ABN != companyDB.ABN)) {
 
 		return company, errors.New("Company verification failed")
 	}
