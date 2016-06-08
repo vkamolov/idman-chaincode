@@ -504,7 +504,7 @@ func VerifyPerson(stub *shim.ChaincodeStub, sPerson string) (Person, error){
     //Read existing person
     var personDB Person
 
-	personDB, errDB := GetPErson(person.ID, stub)
+	personDB, errDB := GetPerson(person.ID, stub)
 	if errDB != nil {
 		return person, errors.New("Person " + person.ID + " not found")
 	}
