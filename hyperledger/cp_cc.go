@@ -742,7 +742,7 @@ func GetCompany(companyId string, stub *shim.ChaincodeStub) (Company, error){
     return company, nil
 }
 
-func VerifyCompany(args []string, stub *shim.ChaincodeStub) (Company, error){
+func VerifyCompany(stub *shim.ChaincodeStub, args []string) (Company, error){
 
 	//args[0] = "{\"id\":\"test ltd\",\"name\":\"Test Ltd\"}"
 	
@@ -751,7 +751,8 @@ func VerifyCompany(args []string, stub *shim.ChaincodeStub) (Company, error){
 		fmt.Println("error invalid arguments")
 		return nil, errors.New("Incorrect number of arguments. Expecting company record")
 	}
-
+	return nil, nil
+/*
 	var company Company
 	var err error
 
@@ -765,8 +766,6 @@ func VerifyCompany(args []string, stub *shim.ChaincodeStub) (Company, error){
 	//generate the company ID
 	company.ID = strings.ToLower(company.Name)
 	company.ID = strings.Replace(company.ID, " ", "", -1) //remove all spaces
-	//var stringHash := person.FirstName + person.LastName + person.BirthDate + person.Email + person.Gender
-    //person.ID, err = genHash(stringHash)
     fmt.Println("company ID is: ", company.ID)
 
     if company.ID == "" {
@@ -806,6 +805,7 @@ func VerifyCompany(args []string, stub *shim.ChaincodeStub) (Company, error){
 	fmt.Println("Returning company " + companyRx.ID)
 	fmt.Println(companyRx)
 	return companyRx, nil
+*/
 }
 
 /******* ID-Man *********************/
@@ -1350,7 +1350,7 @@ func (t *SimpleChaincode) Query(stub *shim.ChaincodeStub, function string, args 
 
 	} else if args[0] == "VerifyCompany" {
 		fmt.Println("Verifying the company")
-		company, err := VerifyCompany([args[1]], stub)
+		company, err := VerifyCompany(stub, [args[1]])
 		if err != nil {
 			fmt.Println("Error from VerifyCompany")
 			return nil, err
