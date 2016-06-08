@@ -479,7 +479,7 @@ func GetPerson(personId string, stub *shim.ChaincodeStub) (Person, error){
     return person, nil
 }
 
-
+/*
 func (t *SimpleChaincode) registerCompany(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
 
 	//need one arg
@@ -663,7 +663,7 @@ func GetCompany(companyId string, stub *shim.ChaincodeStub) (Company, error){
     
     return company, nil
 }
-
+*/
 /******* ID-Man *********************/
 
 
