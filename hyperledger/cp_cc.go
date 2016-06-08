@@ -673,12 +673,11 @@ func VerifyCompany(strCompany string, stub *shim.ChaincodeStub) (Company, error)
 	var sCompany string
 	var companyIn Company
 	var companyOut Company
-	var err error
 
 	sCompany = strCompany
 
 	fmt.Println("Unmarshalling company")
-	err = json.Unmarshal([]byte(sCompany), &companyIn)
+	err := json.Unmarshal([]byte(sCompany), &companyIn)
 	if err != nil {
 		fmt.Println("error invalid company object to verify")
 		return nil, errors.New("Invalid company object to verify")
