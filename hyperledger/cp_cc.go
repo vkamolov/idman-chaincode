@@ -686,7 +686,7 @@ func VerifyCompany(stub *shim.ChaincodeStub, sCompany string) (Company, error){
 
     if company.ID == "" {
         fmt.Println("No company ID, returning error")
-        return nil, errors.New("company ID cannot be blank")
+        return company, errors.New("company ID cannot be blank")
     }
     
     return company, nil
