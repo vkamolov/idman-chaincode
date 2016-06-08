@@ -480,6 +480,30 @@ func GetPerson(personId string, stub *shim.ChaincodeStub) (Person, error){
     return person, nil
 }
 
+func (t *SimpleChaincode) verifyCompany(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
+
+	//need one arg
+	if len(args) != 1 {
+		fmt.Println("error invalid arguments")
+		return nil, errors.New("Incorrect number of arguments. Expecting company record")
+	}
+
+	var company Company
+	var err error
+
+	fmt.Println("Unmarshalling company")
+	err = json.Unmarshal([]byte(args[0]), &company)
+	if err != nil {
+		fmt.Println("error invalid company register")
+		return nil, errors.New("Invalid company register")
+	}
+	if company.ID = nil {
+		fmt.Println("error invalid company register")
+		return nil, errors.New("Invalid company register")
+	}
+
+	return nil, nil
+}
 
 func (t *SimpleChaincode) registerCompany(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
 
@@ -666,15 +690,15 @@ func GetCompany(companyId string, stub *shim.ChaincodeStub) (Company, error){
     return company, nil
 }
 
+/*
 func VerifyCompany(strCompany string, stub *shim.ChaincodeStub) (Company, error){
 
 	//strCompany = "{\"id\":\"test ltd\",\"name\":\"Test Ltd\"}"
 	
 	var sCompany string
 	var companyIn Company
-	var companyOut Company
 
-	sCompany = ""
+	sCompany = strCompany
 
 	fmt.Println("Unmarshalling company")
 	err := json.Unmarshal([]byte(sCompany), &companyIn)
@@ -683,11 +707,6 @@ func VerifyCompany(strCompany string, stub *shim.ChaincodeStub) (Company, error)
 		return nil, errors.New("Invalid company object to verify")
 	}
 
-	companyOutBytes, errOut := stub.GetState(companyPrefix+companyIn.ID)
-	errOut = json.Unmarshal(companyOutBytes, &companyOut)
-
-	return companyOut, nil
-/*
 	//generate the company ID
 	companyIn.ID = strings.ToLower(companyIn.Name)
 	companyIn.ID = strings.Replace(companyIn.ID, " ", "", -1) //remove all spaces
@@ -730,8 +749,8 @@ func VerifyCompany(strCompany string, stub *shim.ChaincodeStub) (Company, error)
     }
 
     return companyOut, nil  
-*/
 }
+*/
 
 /******* ID-Man *********************/
 
@@ -1272,7 +1291,7 @@ func (t *SimpleChaincode) Query(stub *shim.ChaincodeStub, function string, args 
 			fmt.Println("All success, returning the company")
 			return companyBytes, nil		 
 		}
-
+/*
 	} else if args[0] == "VerifyCompany" {
 		fmt.Println("Verifying the company")
 		company, err := VerifyCompany(args[1], stub)
@@ -1288,7 +1307,7 @@ func (t *SimpleChaincode) Query(stub *shim.ChaincodeStub, function string, args 
 			fmt.Println("All success, returning the company")
 			return companyBytes, nil		 
 		}	
-
+*/
 /************* ID-Man **************************/
 
 	} else {
@@ -1326,6 +1345,10 @@ func (t *SimpleChaincode) Invoke(stub *shim.ChaincodeStub, function string, args
 	} else if function == "registerCompany" {
         //Create a Company
         return t.registerCompany(stub, args)
+
+    } else if function == "verifyCompany" {
+        //Verify a Company
+        return t.verifyCompany(stub, args)    
 
 /************* ID-Man **************************/      
 	} else if function == "transferPaper" {
