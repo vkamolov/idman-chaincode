@@ -480,83 +480,6 @@ func GetPerson(personId string, stub *shim.ChaincodeStub) (Person, error){
     return person, nil
 }
 
-/*
-func (t *SimpleChaincode) verifyCompany(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
-
-	//need one arg
-	if len(args) != 1 {
-		fmt.Println("error invalid arguments")
-		return nil, errors.New("Incorrect number of arguments. Expecting company record")
-	}
-
-	var company Company
-	var err error
-
-	fmt.Println("Unmarshalling company")
-	err = json.Unmarshal([]byte(args[0]), &company)
-	if err != nil {
-		fmt.Println("error invalid company register")
-		return nil, errors.New("Invalid company register")
-	}
-
-	//generate the company ID
-	company.ID = strings.ToLower(company.Name)
-	company.ID = strings.Replace(company.ID, " ", "", -1) //remove all spaces
-	//var stringHash := person.FirstName + person.LastName + person.BirthDate + person.Email + person.Gender
-    //person.ID, err = genHash(stringHash)
-    fmt.Println("company ID is: ", company.ID)
-
-    if company.ID == "" {
-        fmt.Println("No company ID, returning error")
-        return nil, errors.New("company ID cannot be blank")
-    }
-    fmt.Println("company ID is: ", company.ID)
-    fmt.Println("company FirstName is: ", company.Name)
-	fmt.Println("company ACN is: ", company.ACN)
-	fmt.Println("company ABN is: ", company.ABN)
-	fmt.Println("company RegDate is: ", company.RegDate)
-	fmt.Println("company RegState is: ", company.RegState)
-    fmt.Println("company Address is: ", company.Address)
-    fmt.Println("company City is: ", company.City)
-    fmt.Println("company Postcode is: ", company.Postcode)
-    fmt.Println("company State is: ", company.State)
-    fmt.Println("Registrator is: ", company.Registrator)
-    fmt.Println("RegisterDate is: ", company.RegisterDate)
-
-	fmt.Println("Marshalling company bytes")
-	fmt.Println("Getting State on company " + company.ID)
-	compRxBytes, err := stub.GetState(companyPrefix+company.ID)
-
-	if compRxBytes == nil {
-
-		fmt.Println("Company not found")
-		return nil, errors.New("Company not found")
-
-	} else {
-		
-		var companyRx Company
-		fmt.Println("Unmarshalling company " + company.ID)
-		err = json.Unmarshal(compRxBytes, &companyRx)
-		if err != nil {
-			fmt.Println("Error unmarshalling company " + company.ID)
-			return nil, errors.New("Error unmarshalling company " + company.ID)
-		}
-
-		companyRx.Address = "new"
-		fmt.Println("Marshalling company " + companyRx.ID)
-		compRxBytes2, err1 := json.Marshal(&companyRx)
-		if err1 != nil {
-			fmt.Println("Error marshalling company " + companyRx.ID)
-			return nil, errors.New("Error marshalling company " + companyRx.ID)
-		}
-
-		fmt.Println("Returning company " + companyRx.ID)
-		fmt.Println(compRxBytes2)
-		return compRxBytes2, nil
-	}
-}
-*/
-
 func (t *SimpleChaincode) registerCompany(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
 
 	//need one arg
@@ -1414,11 +1337,6 @@ func (t *SimpleChaincode) Invoke(stub *shim.ChaincodeStub, function string, args
 	} else if function == "registerCompany" {
         //Create a Company
         return t.registerCompany(stub, args)
-/*
-    } else if function == "verifyCompany" {
-        //Verify a Company
-        return t.verifyCompany(stub, args)    
-*/
 /************* ID-Man **************************/      
 	} else if function == "transferPaper" {
 		fmt.Println("Firing cretransferPaperateAccounts")
