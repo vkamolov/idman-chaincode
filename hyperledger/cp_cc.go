@@ -742,7 +742,7 @@ func GetCompany(companyId string, stub *shim.ChaincodeStub) (Company, error){
     return company, nil
 }
 
-func VerifyCompany(stub *shim.ChaincodeStub, args []string) (Company, error){
+func VerifyCompany(stub *shim.ChaincodeStub, args string) (Company, error){
 
 	//args[0] = "{\"id\":\"test ltd\",\"name\":\"Test Ltd\"}"
 /*	
@@ -1349,7 +1349,7 @@ func (t *SimpleChaincode) Query(stub *shim.ChaincodeStub, function string, args 
 
 	} else if args[0] == "VerifyCompany" {
 		fmt.Println("Verifying the company")
-		company, err := VerifyCompany(stub, [args[1]])
+		company, err := VerifyCompany(stub, args[1])
 		if err != nil {
 			fmt.Println("Error from VerifyCompany")
 			return nil, err
