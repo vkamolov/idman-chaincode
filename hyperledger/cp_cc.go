@@ -528,56 +528,8 @@ func (t *SimpleChaincode) verifyCompany(stub *shim.ChaincodeStub, args []string)
 
 	if compRxBytes == nil {
 
-		fmt.Println("ID does not exist, creating it")
-		compBytes, err := json.Marshal(&company)
-		if err != nil {
-			fmt.Println("Error marshalling company")
-			return nil, errors.New("Error registering company")
-		}
-		err = stub.PutState(companyPrefix+company.ID, compBytes)
-		if err != nil {
-			fmt.Println("Error registering company")
-			return nil, errors.New("Error registering company")
-		}
-		
-		// Update the company keys by adding the new key
-		fmt.Println("Getting company Keys")
-		keysBytes, err := stub.GetState(companyKeysID)
-		if err != nil {
-			fmt.Println("Error retrieving company keys")
-			return nil, errors.New("Error retrieving company keys")
-		}
-		var keys []string
-		err = json.Unmarshal(keysBytes, &keys)
-		if err != nil {
-			fmt.Println("Error unmarshel keys")
-			return nil, errors.New("Error unmarshalling company keys ")
-		}
-		
-		fmt.Println("Appending the new key to company Keys")
-		foundKey := false
-		for _, key := range keys {
-			if key == companyPrefix+company.ID {
-				foundKey = true
-			}
-		}
-		if foundKey == false {
-			keys = append(keys, companyPrefix+company.ID)
-			keysBytesToWrite, err := json.Marshal(&keys)
-			if err != nil {
-				fmt.Println("Error marshalling keys")
-				return nil, errors.New("Error marshalling the keys")
-			}
-			fmt.Println("Put state on company Keys")
-			err = stub.PutState(companyKeysID, keysBytesToWrite)
-			if err != nil {
-				fmt.Println("Error writting company keys back")
-				return nil, errors.New("Error writing the company keys back")
-			}
-		}
-		
-		fmt.Println("Register company %+v\n", company)
-		return nil, nil
+		fmt.Println("Company not found")
+		return nil, errors.New("Company not found")
 
 	} else {
 
