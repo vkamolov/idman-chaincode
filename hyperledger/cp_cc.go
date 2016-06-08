@@ -665,14 +665,12 @@ func GetCompany(companyId string, stub *shim.ChaincodeStub) (Company, error){
     return company, nil
 }
 
-func VerifyCompany(stub *shim.ChaincodeStub, companyId string) (Company, error){
-
-    //compBytes, err := stub.GetState(companyPrefix+companyId)
-    
+func VerifyCompany(stub *shim.ChaincodeStub, sCompany string) (Company, error){
+   
     var err error
     var company Company
-    //err = json.Unmarshal(compBytes, &company)
-    err = json.Unmarshal([]byte(companyId), &company)
+
+    err = json.Unmarshal([]byte(sCompany), &company)
 
     if err != nil {
         fmt.Println("Error retrieving company  + companyId")
