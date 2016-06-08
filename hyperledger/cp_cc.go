@@ -674,7 +674,7 @@ func VerifyCompany(stub *shim.ChaincodeStub, sCompany string) (Company, error){
 
     if err != nil {
         fmt.Println("Error retrieving company  + companyId")
-        return company, errors.New("Error retrieving company  + companyId")
+        return nil, errors.New("Error retrieving company  + companyId")
     }
     
     return company, nil
