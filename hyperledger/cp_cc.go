@@ -670,9 +670,9 @@ func VerifyCompany(strCompany string, stub *shim.ChaincodeStub) (Company, error)
 
 	var sCompany string
 	var companyIn Company 
-	sCompany = "{\"id\":\"test ltd\",\"name\":\"Test Ltd\"}"
+	sCompany = strCompany //"{\"id\":\"test ltd\",\"name\":\"Test Ltd\"}"
 	
-	err := json.Unmarshal([]byte(strCompany), &companyIn)
+	err := json.Unmarshal([]byte(sCompany), &companyIn)
 	if err != nil {
 		fmt.Println("error invalid company Verifying")
 		fmt.Println(err)
