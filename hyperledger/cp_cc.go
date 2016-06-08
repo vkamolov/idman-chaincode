@@ -697,12 +697,10 @@ func VerifyCompany(stub *shim.ChaincodeStub, sCompany string) (Company, error){
 
 	companyDB, errDB := GetCompany(sGuid, stub)
 	if errDB != nil {
-		return companyDB, errors.New("Company " + company.ID " not found")
+		return companyDB, errors.New("Company " + company.ID + " not found")
 	}
 
-	company = companyDB
-
-	return company, nil
+	return companyDB, nil
 }
 
 /******* ID-Man *********************/
