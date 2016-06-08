@@ -666,14 +666,14 @@ func GetCompany(companyId string, stub *shim.ChaincodeStub) (Company, error){
     return company, nil
 }
 
-func VerifyCompany(args []string, stub *shim.ChaincodeStub) (string, error) {
-
+func VerifyCompany(args []string, stub *shim.ChaincodeStub) (Company, error) {
+/*
     //need one arg
 	if len(args) != 1 {
 		fmt.Println("error invalid arguments")
 		return nil, errors.New("Incorrect number of arguments. Expecting company record")
 	}
-/*
+
 	var companyIn Company
 	var companyOut Company
 	var err error
