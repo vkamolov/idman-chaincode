@@ -541,6 +541,8 @@ func (t *SimpleChaincode) verifyCompany(stub *shim.ChaincodeStub, args []string)
 			return nil, errors.New("Error unmarshalling company " + company.ID)
 		}
 
+		fmt.Println("Returning company " + company.ID)
+		fmt.Println(compRxBytes)
 		return compRxBytes, nil
 	}
 }
