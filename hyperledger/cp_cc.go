@@ -541,9 +541,12 @@ func (t *SimpleChaincode) verifyCompany(stub *shim.ChaincodeStub, args []string)
 			return nil, errors.New("Error unmarshalling company " + company.ID)
 		}
 		
-		companyRx.Address = company.Address
+		if companyRx.Address != company.Address {
+			fmt.Println("Company address doesn't match")
+			return nil, errors.New("Company address doesn't match")
+		}
 
-		return companyRx, nil
+		return compRxBytes, nil
 	}
 }
 
