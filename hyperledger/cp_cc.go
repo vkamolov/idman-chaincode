@@ -101,6 +101,7 @@ type Person struct {
 	Postcode 		string  `json:"postcode"`
 	State    		string  `json:"state"`
 	UrlLinks      []UrlLink `json:"urlLinks"`
+	DataPhoto		string  `json:"dataPhoto"`
 	Registrator    	string  `json:"registrator"`
 	RegisterDate 	string  `json:"registerDate"`
 }
